@@ -14,8 +14,6 @@ spring:
           uri: https://github.com/csulwk/coding-config.git
           # 使用占位符来设定搜索路径
           search-paths: '{application}'
-          # 指定代码分支
-          label: master
           # username和password必须配对使用，公开库可以不用填写
           username:
           password:
