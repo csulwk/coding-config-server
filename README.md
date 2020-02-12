@@ -1,4 +1,4 @@
-# coding-spring-test
+# coding-config-server
 
 ## 功能描述  
 https://github.com/csulwk/coding-config-server.git
