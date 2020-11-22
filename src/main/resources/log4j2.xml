@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <!--变量配置-->
+    <Properties>
+        <!-- 指定项目名称 -->
+        <property name="appName" value="coding-config-server" />
+        <!-- 指定日志存储的路径 -->
+        <property name="loggingPath" value="${env:LOG_HOME:-/appdata/logs/}" />
+        <!-- 格式化输出：%d表示日期，%t表示线程名，%-5level表示级别从左显示5个字符宽度 %m是日志消息，%n是换行符-->
+        <property name="loggingPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [${hostName}] [${appName}] [%-5level] [%t] [%c{1.}] :) %m%n" />
+    </Properties>
+
+    <Appenders>
+        <!-- 打印到控制台以便调试 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${loggingPattern}"/>
+        </Console>
+
+        <!-- 打印到文档中以便存档 -->
+        <RollingFile name="LoggingFile" fileName="${loggingPath}/${appName}.log" filePattern="${loggingPath}/${appName}_%d{yyyy-MM-dd}_%i.log" bufferSize="4194304">
+            <PatternLayout pattern="${loggingPattern}"/>
+            <Policies>
+                <!--指定当文件体积大于size指定的值时，触发Rolling-->
+                <SizeBasedTriggeringPolicy size="20MB" />
+            </Policies>
+            <!-- 最大保留10个文件 -->
+            <DefaultRolloverStrategy max="4" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <!--日志级别优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
+        <!--AsyncRoot 异步记录日志 -->
+        <AsyncRoot level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="LoggingFile"/>
+        </AsyncRoot>
+    </Loggers>
+
+</Configuration>

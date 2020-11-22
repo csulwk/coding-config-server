@@ -17,3 +17,5 @@ spring:
           # username和password必须配对使用，公开库可以不用填写
           username:
           password:
+logging:
+  config: classpath:log4j2.xml
